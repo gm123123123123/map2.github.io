@@ -1,20 +1,180 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8"/>
-	<title>Kakao 지도 시작하기</title>
+	<meta charset="utf-8">
+	<title>김앤혁</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./main.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div id="map" style="width:500px;height:400px;"></div>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e863ec1a02fcade8fb8de74a6352f229"></script>
+    <div class="main flex justify-start">
+        <div id="lists" class="w-2/5 h-screen" style="overflow:auto; ">
+            <div class="flex justify-start">
+                <button type="button" id="btn" class="recycle">재활용</button>
+                <button type="button" id="btn" class="disposable">일회용</button>
+                
+            </div>
+            <div class="container"></div>
+        </div>
+       
+        <div id="map" class="w-3/5 h-screen"></div>
+    </div>
+	<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ce0b6aef4ec062f8e52abc5eb06147f4&libraries=clusterer"></script>
 	<script>
-		var container = document.getElementById('map');
-		var options = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667),
-			level: 3
-		};
+         var 재활용데이터= [
+            {longitude:33.4938505,latitude:126.5342257,이름:'탐앤탐스 제주시청점',내용:'재활용',사진: './사진/탐앤탐스 제주시청점.jpeg',방법:'매장 방문:탐앤탐스 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 보증금을 현금으로 반환해줍니다'},
+            {longitude:33.494771,latitude:126.5330624,이름:'투썸플레이스 제주이도점',내용:'재활용',사진: './사진/투썸플레이스 제주이도점.jpeg',방법:'매장 방문:투썸플레이스 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 보증금을 현금으로 반환해줍니다'},
+            {longitude:33.4954416,latitude:126.5323776,이름:'엔제리너스 제주시청점',내용:'재활용',사진: './사진/엔제리너스 제주시청점.jpeg',방법:'매장 방문:엔젤리너스 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 보증금을 현금으로 반환해줍니다'},
+            {longitude:33.4992191,latitude:126.5296826,이름:'더벤티 제주시청',내용:'재활용',사진: './사진/더벤티 제주시청.jpeg',방법:'매장 방문:더벤티 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 보증금을 현금으로 반환해줍니다'},
+            {longitude:33.5001397,latitude:126.5273383,이름:'스무디킹 CGV제주점',내용:'재활용',사진: './사진/스무디킹 CGV제주점.jpeg',방법:'매장 방문:스무디킹 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 보증금을 현금으로 반환해줍니다'},
+            {longitude:33.5002042,latitude:126.5276265,이름:'더치앤빈 제주시청점',내용:'일회용,재활용',사진: './사진/더치앤빈 제주시청점.jpeg',방법:'매장 방문:더치앤빈 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 보증금을 현금으로 반환해줍니다'},
+            {longitude:33.489129,latitude:126.5394016,이름:'파스쿠찌 이도점',내용:'일회용,재활용',사진: './사진/파스쿠찌 이도점.jpeg',방법:'파스쿠찌는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.5004881,latitude:126.5266053,이름:'파리바게트 제주광양점',내용:'일회용,재활용',사진: './사진/파리바게트 제주광양점.jpeg',방법:'매장 방문:파리바게트 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 컵 보증금을 반환해줍니다.<br>반환 방법은 현금, 스토어 크레딧 또는 기타 형태의 보상으로 지급됩니다.'},
+            {longitude:33.4991118,latitude:126.5299787,이름:'파리바게트 제주시청점',내용:'일회용,재활용',사진: './사진/파리바게트 제주시청점.jpeg',방법:'매장 방문:파리바게트 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 컵 보증금을 반환해줍니다.<br>반환 방법은 현금, 스토어 크레딧 또는 기타 형태의 보상으로 지급됩니다.'},
+            {longitude:33.4912529,latitude:126.535779,이름:'파리바게트 제주법원점',내용:'일회용,재활용',사진: './사진/파리바게트 제주법원점.jpeg',방법:'매장 방문:파리바게트 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 컵 보증금을 반환해줍니다.<br>반환 방법은 현금, 스토어 크레딧 또는 기타 형태의 보상으로 지급됩니다.'},
+        ]
 
-		var map = new kakao.maps.Map(container, options);
+        var 일회용데이터= [
+            {longitude:33.4963818,latitude:126.5318389,이름:'이디야 제주시청고산동산점',내용:'일회용',사진:'./사진/이디야 제주시청 고산동산점.jpeg',방법:'이디야는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.4938505,latitude:126.5197499,이름:'이디야 제주삼도점',내용:'일회용',사진: './사진/이디야 제주삼도점.jpeg',방법:'이디야는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.4980526,latitude:126.5302793,이름:'공차 제주시청점',내용:'일회용',사진: './사진/공차 제주시청점.jpeg',방법:'공차는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.4945829,latitude:126.534425,이름:'빽다방 제주법조타워점',내용:'일회용',사진: './사진/빽다방 제주법조타워점.jpeg',방법:'뺵다방은 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.4976331,latitude:126.5282371,이름:'빽다방 제주도남점',내용:'일회용',사진: './사진/빽다방 제주도남점.jpeg',방법:'뺵다방은 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.4999508,latitude:126.528248,이름:'빽다방 제주대학로점',내용:'일회용',사진: './사진/빽다방 제주대학로점.jpeg',방법:'빽다방은 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.5039068,latitude:126.5270055,이름:'카페 드롭탑 제주삼성점',내용:'일회용',사진: './사진/카페 드롭탑 제주삼성점.jpeg',방법:'카페 드롭탑은 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.501582,latitude:126.5287003,이름:'요거프레소 제주 이도점',내용:'일회용',사진: './사진/요거프레소 제주 이도점.jpeg',방법:'요거프레소는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.4946094,latitude:126.5341512,이름:'메가MGC커피 제주이도점',내용:'일회용',사진: './사진/메가MGC커피 제주이도점.jpeg',방법:'메가커피는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.5035286,latitude:126.5267308,이름:'카페봄봄 제주삼성점',내용:'일회용',사진: './사진/카페봄봄 제주삼성점.jpeg',방법:'카페봄봄은 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},     
+            {longitude:33.5000325,latitude:126.5293341,이름:'던킨도너츠 제주시청',내용:'일회용',사진: './사진/던킨도너츠 제주시청.jpeg',방법:'던킨도너츠는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.4997894,latitude:126.5294968,이름:'앤티앤스 제주시청',내용:'일회용',사진: './사진/앤티앤스 제주시청.jpeg',방법:'앤티앤스는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.4973837,latitude:126.5312013,이름:'써브웨이 제주시청',내용:'일회용',사진: './사진/써브웨이 제주시청.jpeg',방법:'써브웨이는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.4955376,latitude:126.527117,이름:'뚜레쥬르 제주도남',내용:'일회용',사진: './사진/뚜레쥬르 제주도남.jpeg',방법:'뚜레쥬르는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.4958917,latitude:126.53294,이름:'뚜레쥬르 제주이도동점',내용:'일회용',사진: './사진/뚜레쥬르 제주이도동점.jpeg',방법:'뚜레쥬르는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.4956543,latitude:126.5331797,이름:'맥도날드 제주시청점',내용:'일회용',사진: './사진/맥도날드 제주시청점.jpeg',방법:'맥도날드는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.4947424,latitude:126.5341578,이름:'KFC 제주시청점',내용:'일회용',사진: './사진/KFC 제주시청점.jpeg',방법:'KFC는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.5002042,latitude:126.5276265,이름:'더치앤빈 제주시청점',내용:'일회용,재활용',사진: './사진/더치앤빈 제주시청점.jpeg',방법:'매장 방문:더치앤빈 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 보증금을 현금으로 반환해줍니다'},
+            {longitude:33.5004728,latitude:126.5295744,이름:'스타벅스 제주시청점',내용:'일회용',사진: './사진/스타벅스 제주시청점.jpeg',방법:'매장 방문:스타벅스 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 보증금을 현금으로 반환해줍니다'},
+            {longitude:33.489129,latitude:126.5394016,이름:'파스쿠찌 이도점',내용:'일회용,재활용',사진: './사진/파스쿠찌 이도점.jpeg',방법:'파스쿠찌는 컵 보증금 정책을 시행하고 있지 않습니다<br>그러므로 사용자가 일회용 컵 사용 후 폐기합니다'},
+            {longitude:33.5004881,latitude:126.5266053,이름:'파리바게트 제주광양점',내용:'일회용,재활용',사진: './사진/파리바게트 제주광양점.jpeg',방법:'매장 방문:파리바게트 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 컵 보증금을 반환해줍니다.<br>반환 방법은 현금, 스토어 크레딧 또는 기타 형태의 보상으로 지급됩니다.'},
+            {longitude:33.4991118,latitude:126.5299787,이름:'파리바게트 제주시청점',내용:'일회용,재활용',사진: './사진/파리바게트 제주시청점.jpeg',방법:'매장 방문:파리바게트 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 컵 보증금을 반환해줍니다.<br>반환 방법은 현금, 스토어 크레딧 또는 기타 형태의 보상으로 지급됩니다.'},
+            {longitude:33.4912529,latitude:126.535779,이름:'파리바게트 제주법원점',내용:'일회용,재활용',사진: './사진/파리바게트 제주법원점.jpeg',방법:'매장 방문:파리바게트 매장을 방문합니다<br>컵제출:직원에게 컵을 제출합니다<br>보증금 반환: 매장 직원은 컵을 확인하고 컵 보증금을 반환해줍니다.<br>반환 방법은 현금, 스토어 크레딧 또는 기타 형태의 보상으로 지급됩니다.'},
+        ]
+        const displayLIst = ()=>{
+        보여지는데이터.forEach((데이터,순서)=>{
+            let 엘리먼트 =
+                ` <div class="product border-b-2 border-grey-500 bg-stone-50" id="${순서}">
+                    <div class="thumbnail" style="background-image: url('${데이터.사진}')"></div>
+                        <div class="flex-grow-1 p-4">
+                            <h5 class="title">카페이름: ${데이터.이름}</h5>
+                            <p class="seat">내용: ${데이터.내용}</p>
+                        </div>
+                    </div>`;
+            $('.container').append(엘리먼트);
+            $(`#${순서}`).click((e) => {
+                mapOption = {
+                    center: new kakao.maps.LatLng(데이터.longitude, 데이터.latitude), // 지도의 중심좌표
+                    level: 3 // 지도의 확대 레벨
+                };
+
+
+          // 지도를 생성합니다    
+          var map = new kakao.maps.Map(mapContainer, mapOption);
+          // 마커가 표시될 위치입니다 
+          // 마커를 생성합니다
+          var marker = new kakao.maps.Marker({
+            position: new kakao.maps.LatLng(데이터.longitude, 데이터.latitude),
+          });
+
+          marker.setZIndex(4);
+          // 마커가 지도 위에 표시되도록 설정합니다
+          marker.setMap(map);
+
+            // 커스텀 오버레이에 표시할 컨텐츠 입니다
+            // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
+            // 별도의 이벤트 메소드를 제공하지 않습니다 
+            var content = `<div class="wrap">  
+                            <div class="info">  
+                                <div class="title">  
+                                    ${데이터.이름}
+                                </div>  
+                                <div class="body">  
+                                    <div class="img"> 
+                                        <img src="${데이터.사진}" width="73" height="70"> 
+                                   </div> 
+                                    <div class="desc">  
+                                        ${데이터.방법}
+                                    </div> 
+                                        <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>  
+                                        <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>  
+                                        <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>  
+                                    </div>  
+                                </div>  
+                            </div>     
+                        </div>`;
+          // 마커 위에 커스텀오버레이를 표시합니다
+            // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+            var overlay = new kakao.maps.CustomOverlay({
+                content: content,
+                map: map,
+                position: marker.getPosition()       
+            });
+          // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+          // 인포윈도우를 생성하고 지도에 표시합니다
+          kakao.maps.event.addListener(marker, 'click',  function() {
+                overlay.setMap(map);
+            });
+
+            // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+            function closeOverlay() {
+                overlay.setMap(null);     
+            }
+          function makeClickListener(map, marker, infowindow) {
+            return function () {
+              infowindow.open(map, marker);
+            };
+          }
+        })
+      })
+    }
+        let 보여지는데이터 = 재활용데이터; 
+        const $recycleBtn = document.querySelector('.recycle');
+        const $disposableBtn = document.querySelector('.disposable');
+        const dispalyRecycle = ()=>{
+            보여지는데이터 = 재활용데이터;
+            $('.container').empty();
+            displayLIst()
+        }
+
+        const dispalyDisposable = ()=>{
+            보여지는데이터 = 일회용데이터; 
+            $('.container').empty();
+            displayLIst()
+        }
+        $recycleBtn.addEventListener('click',dispalyRecycle);
+        $disposableBtn.addEventListener('click',dispalyDisposable);
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(33.499382, 126.530010), // 지도의 중심좌표
+		        level: 3, // 지도의 확대 레벨
+		        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+		    }; 
+		// 지도를 생성한다 
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+        // 마커 클러스터러를 생성합니다 
+    var clusterer = new kakao.maps.MarkerClusterer({
+        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+        minLevel: 10 // 클러스터 할 최소 지도 레벨 
+    });
+
+    
+      
+    displayLIst();
+    
+    
 	</script>
 </body>
 </html>
