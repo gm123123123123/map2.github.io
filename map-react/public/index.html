@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>포맨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./main.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="main flex justify-start">
+        <div id="lists" class="w-2/5 h-screen" style="overflow:auto; ">
+            <div class="flex justify-start">
+                <button type="button" id="btn" class="recycle">재활용</button>
+           
+               
+            </div>
+            <div class="container"></div>
+        </div>
+       
+        <div id="map" class="w-3/5 h-screen"></div>
+    </div>
+	<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=e863ec1a02fcade8fb8de74a6352f229&libraries=clusterer"></script>
+	<script>
+         var 재활용데이터= [
+            {longitude:37.394157,latitude:126.957065,이름:'안양시청',내용:'재활용',사진: './사진/안양시청.jpeg',방법:'네프론 방문:네프론을 방문합니다<br>투입:캔과 페트를 제출합니다<br>포인트 반환: 포인트 확인 후 포인트을 현금으로 환전해줍니다'},
+            {longitude:37.392244,latitude: 126.958021,이름:'중앙공원 인라인스케이트장',내용:'재활용',사진: './사진/중앙공원 인라인스케이트장.jpeg',방법:'네프론 방문:네프론을 방문합니다<br>투입:캔과 페트를 제출합니다<br>포인트 반환: 포인트 확인 후 포인트을 현금으로 환전해줍니다'},
+            {longitude:37.390136,latitude: 126.959199,이름:'중앙공원 음수대 ',내용:'재활용',사진: './사진/중앙공원 음수대 .jpeg',방법:'네프론 방문:네프론을 방문합니다<br>투입:캔과 페트를 제출합니다<br>포인트 반환: 포인트 확인 후 포인트을 현금으로 환전해줍니다'},
+            {longitude:37.390153,latitude: 126.959124,이름:'중앙공원 관리사무소 ',내용:'재활용',사진: './사진/중앙공원 관리사무소 .jpeg',방법:'네프론 방문:네프론을 방문합니다<br>투입:캔과 페트를 제출합니다<br>포인트 반환: 포인트 확인 후 포인트을 현금으로 환전해줍니다'},
+            {longitude:37.395826,latitude: 126.930399,이름:'센트럴타워 ',내용:'재활용',사진: './사진/센트럴타워.jpeg',방법:'네프론 방문:네프론을 방문합니다<br>투입:캔과 페트를 제출합니다<br>포인트 반환: 포인트 확인 후 포인트을 현금으로 환전해줍니다'},
+            {longitude:37.395179,latitude: 126.922277,이름:'냉천어린이공원 ',내용:'재활용',사진: './사진/냉천어린이공원.jpeg',방법:'네프론 방문:네프론을 방문합니다<br>투입:캔과 페트를 제출합니다<br>포인트 반환: 포인트 확인 후 포인트을 현금으로 환전해줍니다'},
+            {longitude:37.391335,latitude: 126.909114,이름:'안양9동 꿈나눔터 ',내용:'재활용',사진: './사진/안양9동 꿈나눔터.jpeg',방법:'네프론 방문:네프론을 방문합니다<br>투입:캔과 페트를 제출합니다<br>포인트 반환: 포인트 확인 후 포인트을 현금으로 환전해줍니다'},
+            {longitude:37.402932,latitude: 126.913656,이름:'만안종합사회복지관 ',내용:'재활용',사진: './사진/만안종합사회복지관.jpeg',방법:'네프론 방문:네프론을 방문합니다<br>투입:캔과 페트를 제출합니다<br>포인트 반환: 포인트 확인 후 포인트을 현금으로 환전해줍니다'},
+           
+           {longitude:37.410436,latitude: 126.907289,이름:'갈뫼어린이공원 ',내용:'재활용',사진: './사진/갈뫼어린이공원.jpeg',방법:'네프론 방문:네프론을 방문합니다<br>투입:캔과 페트를 제출합니다<br>포인트 반환: 포인트 확인 후 포인트을 현금으로 환전해줍니다'},
+
+            {longitude:37.399086,latitude:126.948046,이름:'학운공원',내용:'재활용',사진: './사진/학운공원.jpeg',방법:'매장 방문:네프론을 방문합니다<br>투입:캔과 페트를 제출합니다<br>포인트 반환: 포인트 확인 후 포인트을 현금으로 환전해줍니다'},
+
+        ]
+
+     
+        const displayLIst = ()=>{
+        보여지는데이터.forEach((데이터,순서)=>{
+            let 엘리먼트 =
+                ` <div class="product border-b-2 border-grey-500 bg-stone-50" id="${순서}">
+                    <div class="thumbnail" style="background-image: url('${데이터.사진}')"></div>
+                        <div class="flex-grow-1 p-4">
+                            <h5 class="title">분리수거함 이름: ${데이터.이름}</h5>
+                            <p class="seat">내용: ${데이터.내용}</p>
+                        </div>
+                    </div>`;
+            $('.container').append(엘리먼트);
+            $(`#${순서}`).click((e) => {
+                mapOption = {
+                    center: new kakao.maps.LatLng(데이터.longitude, 데이터.latitude), // 지도의 중심좌표
+                    level: 3 // 지도의 확대 레벨
+                };
+
+
+          // 지도를 생성합니다    
+          var map = new kakao.maps.Map(mapContainer, mapOption);
+          // 마커가 표시될 위치입니다
+          // 마커를 생성합니다
+          var marker = new kakao.maps.Marker({
+            position: new kakao.maps.LatLng(데이터.longitude, 데이터.latitude),
+          });
+
+          marker.setZIndex(4);
+          // 마커가 지도 위에 표시되도록 설정합니다
+          marker.setMap(map);
+
+            // 커스텀 오버레이에 표시할 컨텐츠 입니다
+            // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
+            // 별도의 이벤트 메소드를 제공하지 않습니다
+            var content = `<div class="wrap">  
+                            <div class="info">  
+                                <div class="title">  
+                                    ${데이터.이름}
+                                </div>  
+                                <div class="body">  
+                                    <div class="img">
+                                        <img src="${데이터.사진}" width="73" height="70">
+                                   </div>
+                                    <div class="desc">  
+                                        ${데이터.방법}
+                                    </div>
+                                        <div class="ellipsis">경기 안양시 만안구 만안로 232</div>  
+                                        <div class="jibun ellipsis">(우) 13992 (지번) 안양동 88-1</div>  
+                                        <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>  
+                                    </div>  
+                                </div>  
+                            </div>    
+                        </div>`;
+          // 마커 위에 커스텀오버레이를 표시합니다
+            // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+            var overlay = new kakao.maps.CustomOverlay({
+                content: content,
+                map: map,
+                position: marker.getPosition()      
+            });
+          // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+          // 인포윈도우를 생성하고 지도에 표시합니다
+          kakao.maps.event.addListener(marker, 'click',  function() {
+                overlay.setMap(map);
+            });
+
+            // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
+            function closeOverlay() {
+                overlay.setMap(null);    
+            }
+          function makeClickListener(map, marker, infowindow) {
+            return function () {
+              infowindow.open(map, marker);
+            };
+          }
+        })
+      })
+    }
+        let 보여지는데이터 = 재활용데이터;
+        const $recycleBtn = document.querySelector('.recycle');
+        const $disposableBtn = document.querySelector('.disposable');
+        const dispalyRecycle = ()=>{
+            보여지는데이터 = 재활용데이터;
+            $('.container').empty();
+            displayLIst()
+        }
+
+        $recycleBtn.addEventListener('click',dispalyRecycle);
+        $disposableBtn.addEventListener('click',dispalyDisposable);
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+		    mapOption = {
+		        center: new kakao.maps.LatLng(37.401519,126.922186), // 지도의 중심좌표
+		        level: 3, // 지도의 확대 레벨
+		        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+		    };
+		// 지도를 생성한다
+		var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 마커 클러스터러를 생성합니다
+    var clusterer = new kakao.maps.MarkerClusterer({
+        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        minLevel: 10 // 클러스터 할 최소 지도 레벨
+    });
+
+   
+     
+    displayLIst();
+   
+   
+	</script>
+</body>
+</html>
