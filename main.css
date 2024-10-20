@@ -1,15 +1,16 @@
 .product {
   display: flex;
+  flex-direction: column; /* 세로로 정렬 */
+  align-items: center; /* 중앙 정렬 */
   padding: 10px;
-  gap: 12px; /* 아이템 간의 간격을 일정하게 유지 */
+  gap: 12px; /* 아이템 간 간격 */
 }
 
 .thumbnail {
   max-width: 200dp; /* dp 단위 사용 */
   width: 100%;
   border-radius: 10px;
-  object-fit: contain; /* 이미지 비율 유지 */
-  background-position: center;
+  object-fit: cover; /* 이미지 비율 유지 */
 }
 
 .product .price {
@@ -25,6 +26,16 @@
 .product .date {
   color: grey;
   font-size: 13px;
+}
+
+.product .info {
+  text-align: left;
+  margin: 10px 0; /* 텍스트 간 간격 조정 */
+}
+
+.info .desc {
+  margin-left: 15px; /* 이미지와 텍스트 사이 간격 */
+  line-height: 1.5; /* 텍스트 간의 줄 간격 */
 }
 
 /* 아래의 모든 코드는 영역::코드로 사용 */
