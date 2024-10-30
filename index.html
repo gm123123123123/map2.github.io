@@ -4,19 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>포맨</title>
-    
+
     <!-- Tailwind CSS 설치 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./main.css">
 
     <!-- jQuery 설치 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous"></script>
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="main flex justify-start">
-        <div id="lists" class="w-2/5 h-screen" style="overflow:auto;">
+    <div class="main flex flex-col md:flex-row">
+        <div id="lists" class="md:w-2/5 w-full h-screen overflow-auto">
             <div class="flex justify-start">
                 <!-- 재활용 버튼 -->
                 <button type="button" id="btn" class="recycle">재활용</button>
@@ -24,14 +23,14 @@
             <div class="container"></div>
         </div>
        
-        <div id="map" class="w-3/5 h-screen"></div>
+        <div id="map" class="md:w-3/5 w-full h-96 md:h-screen"></div>
     </div>
 
     <!-- Kakao Maps API 로드 -->
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=996a638740c8a80e36817308b316a849"></script>
 
     <script>
-        // 재활용 데이터 리스트
+        // 기존의 코드 유지
         var 재활용데이터 = [
             {longitude:37.394157, latitude:126.957065, 이름:'안양시청', 내용:'재활용', 사진:'./사진/안양시청.jpeg', 방법:'네프론 방문: 07:00 ~ 22:00<br>투입가능자원: 음료 캔<br>포인트 반환: 포인트 확인 후 포인트를 현금으로 환전합니다'},
             {longitude:37.392244, latitude:126.958021, 이름:'중앙공원 인라인스케이트장', 내용:'재활용', 사진:'./사진/중앙공원 인라인스케이트장.jpeg', 방법:'네프론 방문: 00:00 ~ 24:00<br>투입가능자원: 음료 캔<br>포인트 반환: 포인트 확인 후 포인트를 현금으로 환전합니다'},
@@ -45,94 +44,15 @@
             {longitude:37.399086, latitude:126.948046, 이름:'학운공원', 내용:'재활용', 사진:'./사진/학운공원.jpeg', 방법:'매장 방문: 00:00 ~ 24:00<br>투입가능자원: 음료 캔<br>포인트 반환: 포인트 확인 후 포인트를 현금으로 환전합니다'}
         ];
 
-        // 리스트를 화면에 표시하는 함수
-        const displayList = () => {
-            보여지는데이터.forEach((데이터, 순서) => {
-                let 엘리먼트 = `
-                    <div class="product border-b-2 border-grey-500 bg-stone-50" id="${순서}">
-                        <div class="thumbnail" style="background-image: url('${데이터.사진}')"></div>
-                        <div class="flex-grow-1 p-4">
-                            <h5 class="title">분리수거함 이름: ${데이터.이름}</h5>
-                            <p class="seat">내용: ${데이터.내용}</p>
-                        </div>
-                    </div>`;
-                $('.container').append(엘리먼트);
-                $(`#${순서}`).click((e) => {
-                    // 지도를 중심으로 이동
-                    var mapOption = {
-                        center: new kakao.maps.LatLng(데이터.longitude, 데이터.latitude), // 지도의 중심좌표
-                        level: 3 // 지도의 확대 레벨
-                    };
-                    
-                    // 지도를 생성합니다    
-                    var map = new kakao.maps.Map(mapContainer, mapOption);
-                    
-                    // 마커를 생성합니다
-                    var marker = new kakao.maps.Marker({
-                        position: new kakao.maps.LatLng(데이터.longitude, 데이터.latitude),
-                    });
-                    
-                    marker.setZIndex(4);
-                    marker.setMap(map);
-                    
-                    // 커스텀 오버레이에 표시할 컨텐츠
-                    var content = `<div class="wrap">  
-                                    <div class="info">  
-                                        <div class="title">  
-                                            ${데이터.이름}
-                                        </div>  
-                                        <div class="body">  
-                                            <div class="img">
-                                                <img src="${데이터.사진}" width="73" height="70">
-                                           </div>
-                                            <div class="desc">  
-                                                ${데이터.방법}
-                                            </div>
-                                            <div class="ellipsis">경기 안양시 만안구 만안로 232</div>  
-                                            <div class="jibun ellipsis">(우) 13992 (지번) 안양동 88-1</div>  
-                                            <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>  
-                                        </div>  
-                                    </div>    
-                                </div>`;
-                    
-                    // 마커 위에 커스텀 오버레이를 표시합니다
-                    var overlay = new kakao.maps.CustomOverlay({
-                        content: content,
-                        map: map,
-                        position: marker.getPosition()      
-                    });
-
-                    // 마커를 클릭하면 장소명을 표출할 인포윈도우 생성
-                    kakao.maps.event.addListener(marker, 'click', function() {
-                        overlay.setMap(map);
-                    });
-                });
-            });
-        };
-
-        let 보여지는데이터 = 재활용데이터;
-
-        const $recycleBtn = document.querySelector('.recycle');
-
-        const dispalyRecycle = () => {
-            보여지는데이터 = 재활용데이터;
-            $('.container').empty();
-            displayList();
-        };
-
-        $recycleBtn.addEventListener('click', dispalyRecycle);
-
-        // 지도 초기화
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        // 지도 옵션
+        var mapContainer = document.getElementById('map'),
             mapOption = {
-                center: new kakao.maps.LatLng(37.401519, 126.922186), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
+                center: new kakao.maps.LatLng(37.401519, 126.922186),
+                level: 3
             };
         
-        // 지도를 생성합니다    
         var map = new kakao.maps.Map(mapContainer, mapOption);
 
-        // 페이지 로드 후 리스트 표시
         $(document).ready(function() {
             displayList();
         });
