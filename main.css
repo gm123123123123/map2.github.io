@@ -1,15 +1,10 @@
-/* 전체 제품 스타일 */
 .product {
     display: flex;
     padding: 10px;
 }
 
 .thumbnail {
-    max-width: 200px;
-    width: 100%;
-    border-radius: 10px;
-    background-size: cover;
-    background-position: center;
+    display: none; /* 사진을 숨기기 위해 display: none 설정 */
 }
 
 .product .price {
@@ -40,7 +35,7 @@
 }
 
 #list::-webkit-scrollbar-track {
-    background: rgba(33, 122, 244, 0.1); /* 스크롤바 뒷 배경 색상 */
+    background: rgba(33, 122, 244, 0.1); /*스크롤바 뒷 배경 색상*/
 }
 
 #btn {
@@ -52,15 +47,16 @@
 .wrap {
     position: absolute;
     left: 0;
-    bottom: 10px; /* 배너를 맵 위에 좀 더 아래로 배치 */
-    width: 90%; /* 배너 너비를 화면에 맞춰 조정 */
-    height: auto; /* 자동 높이 조정 */
-    max-height: 150px; /* 배너 최대 높이 */
+    bottom: 40px;
+    width: 500px;
+    height: 132px; /* 배너의 높이 조정 */
+    margin-left: -144px;
     text-align: left;
     overflow: hidden;
     font-size: 12px;
     font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
     line-height: 1.5;
+    display: none; /* 기본적으로 숨기기 */
 }
 
 .wrap * {
@@ -69,13 +65,13 @@
 }
 
 .wrap .info {
-    width: 100%; /* 배너 정보의 너비를 100%로 설정 */
-    height: auto; /* 내용에 맞춰 높이 자동 조정 */
+    width: 500px;
+    height: 120px;
     border-radius: 5px;
     border-bottom: 2px solid #ccc;
     border-right: 1px solid #ccc;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.9); /* 배너 배경을 반투명으로 설정 */
+    background: #fff;
 }
 
 .wrap .info:nth-child(1) {
@@ -113,8 +109,8 @@
 
 .info .desc {
     position: relative;
-    margin: 13px 0 0 10px; /* 여백 조정 */
-    height: auto; /* 설명의 높이를 자동으로 조정 */
+    margin: 13px 0 0 90px;
+    height: 75px;
 }
 
 .desc .ellipsis {
@@ -130,7 +126,14 @@
 }
 
 .info .img {
-    display: none; /* 이미지를 숨김 */
+    position: absolute;
+    top: 6px;
+    left: 5px;
+    width: 73px;
+    height: 71px;
+    border: 1px solid #ddd;
+    color: #888;
+    overflow: hidden;
 }
 
 .info:after {
