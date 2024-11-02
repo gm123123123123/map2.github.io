@@ -1,180 +1,38 @@
-/* 전체 제품 스타일 */
-.product {
-    display: flex;
-    padding: 10px;
-}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지도 예제</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="map" class="map-container"></div>
+    <div id="btn">버튼</div>
+    <div class="wrap">
+        <div class="info">
+            <div class="title">제목</div>
+            <div class="close"></div>
+            <div class="body">
+                <div class="desc">
+                    <div class="ellipsis">설명 텍스트가 여기에 들어갑니다.</div>
+                    <div class="jibun">주소 정보</div>
+                </div>
+                <div class="img"></div>
+            </div>
+        </div>
+    </div>
 
-/* 썸네일 이미지 스타일 */
-.thumbnail {
-    max-width: 200px;
-    width: 100%;
-    border-radius: 10px;
-    background-size: cover;
-    background-position: center;
-    display: none; /* 기본적으로 숨기기 */
-}
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_APP_KEY"></script>
+    <script>
+        // 카카오 지도 초기화 코드
+        var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
+        var mapOption = {
+            center: new kakao.maps.LatLng(37.5665, 126.978), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
 
-/* 가격, 제목, 날짜 스타일 */
-.product .price {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.product .title {
-    font-size: 17px;
-    font-weight: 600;
-}
-
-.product .date {
-    color: grey;
-    font-size: 13px;
-}
-
-/* 스크롤바 스타일 */
-#list::-webkit-scrollbar {
-    width: 10px; /* 스크롤바의 너비 */
-}
-
-#list::-webkit-scrollbar-thumb {
-    height: 30%; /* 스크롤바의 길이 */
-    background: #217af4; /* 스크롤바의 색상 */
-    border-radius: 10px;
-}
-
-#list::-webkit-scrollbar-track {
-    background: rgba(33, 122, 244, 0.1); /* 스크롤바 뒷 배경 색상 */
-}
-
-/* 버튼 스타일 */
-#btn {
-    display: flex;
-    padding: 10px;
-    z-index: 2;
-}
-
-/* 지도와 관련된 컨테이너 스타일 */
-.map-container {
-    width: 100%; /* 부모 요소의 너비를 100%로 설정 */
-    height: calc(100vh - 100px); /* 전체 높이에서 적절한 값만큼 빼서 설정 */
-    position: relative; /* 자식 요소의 절대 위치를 위한 상대적 위치 설정 */
-}
-
-/* 맵 스타일 */
-#map {
-    width: 100%; /* 지도의 너비를 100%로 설정 */
-    height: 100%; /* 부모 요소에 맞춰 높이 자동 조정 */
-}
-
-/* 모바일에서의 지도 크기 조정 */
-@media (max-width: 768px) {
-    #map {
-        height: 300px; /* 모바일에서의 높이 설정 */
-    }
-}
-
-/* 정보 배너 스타일 */
-.wrap {
-    position: absolute;
-    left: 0;
-    bottom: 40px;
-    width: 500px;
-    height: auto; /* 배너 높이를 자동으로 조정 */
-    margin-left: -144px;
-    text-align: left;
-    overflow: hidden;
-    font-size: 12px;
-    font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
-    line-height: 1.5;
-}
-
-.wrap * {
-    padding: 0;
-    margin: 0;
-}
-
-.wrap .info {
-    width: 500px;
-    height: auto; /* 내용에 맞춰 높이 자동 조정 */
-    border-radius: 5px;
-    border-bottom: 2px solid #ccc;
-    border-right: 1px solid #ccc;
-    overflow: hidden;
-    background: #fff;
-}
-
-.wrap .info:nth-child(1) {
-    border: 0;
-    box-shadow: 0px 1px 2px #888;
-}
-
-.info .title {
-    padding: 5px 0 0 10px;
-    height: 30px;
-    background: #eee;
-    border-bottom: 1px solid #ddd;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.info .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #888;
-    width: 17px;
-    height: 17px;
-    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
-}
-
-.info .close:hover {
-    cursor: pointer;
-}
-
-.info .body {
-    position: relative;
-    overflow: hidden;
-}
-
-.info .desc {
-    position: relative;
-    margin: 13px 0 0 90px;
-    height: 75px;
-}
-
-.desc .ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.desc .jibun {
-    font-size: 11px;
-    color: #888;
-    margin-top: -2px;
-}
-
-.info .img {
-    position: absolute;
-    top: 6px;
-    left: 5px;
-    width: 73px;
-    height: 71px;
-    border: 1px solid #ddd;
-    color: #888;
-    overflow: hidden;
-}
-
-.info:after {
-    content: '';
-    position: absolute;
-    margin-left: -12px;
-    left: 50%;
-    bottom: 0;
-    width: 22px;
-    height: 12px;
-    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
-}
-
-.info .link {
-    color: #5085BB;
-}
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    </script>
+</body>
+</html>
