@@ -3,12 +3,14 @@
     padding: 10px;
   }
   .thumbnail {
-    max-width: 200px;
-    width: 100%;
-    border-radius: 10px;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
     background-size: cover;
     background-position: center;
-  }
+    background-repeat: no-repeat;
+}
+
   .product .price {
     font-size: 16px;
     font-weight: 600;
