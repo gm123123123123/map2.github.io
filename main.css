@@ -53,7 +53,7 @@
     left: 0;
     bottom: 40px;
     width: 500px;
-    height: 100px; /* 높이를 줄여서 지도 공간을 더 확보 */
+    height: 200px; /* 높이를 줄여서 지도 공간을 더 확보 */
     margin-left: -144px;
     text-align: left;
     overflow: hidden;
