@@ -2,7 +2,6 @@
     display: flex;
     padding: 10px;
 }
-
 .thumbnail {
     max-width: 200px;
     width: 100%;
@@ -10,17 +9,14 @@
     background-size: cover;
     background-position: center;
 }
-
 .product .price {
     font-size: 16px;
     font-weight: 600;
 }
-
 .product .title {
     font-size: 17px;
     font-weight: 600;
 }
-
 .product .date {
     color: grey;
     font-size: 13px;
@@ -48,12 +44,13 @@
     z-index: 2;
 }
 
+/* 리스트 영역 높이 조정 */
 .wrap {
     position: absolute;
     left: 0;
     bottom: 40px;
     width: 500px;
-    height: 132px;
+    height: 100px; /* 높이를 줄여서 지도 공간을 더 확보 */
     margin-left: -144px;
     text-align: left;
     overflow: hidden;
@@ -69,7 +66,7 @@
 
 .wrap .info {
     width: 500px;
-    height: 120px;
+    height: 90px; /* 정보 박스 높이 조정 */
     border-radius: 5px;
     border-bottom: 2px solid #ccc;
     border-right: 1px solid #ccc;
@@ -113,7 +110,7 @@
 .info .desc {
     position: relative;
     margin: 13px 0 0 90px;
-    height: 75px;
+    height: 55px; /* 설명 박스 높이 조정 */
 }
 
 .desc .ellipsis {
