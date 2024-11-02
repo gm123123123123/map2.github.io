@@ -4,7 +4,11 @@
 }
 
 .thumbnail {
-    display: none; /* 사진을 숨기기 위해 display: none 설정 */
+    max-width: 200px;
+    width: 100%;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
 }
 
 .product .price {
@@ -49,14 +53,13 @@
     left: 0;
     bottom: 40px;
     width: 500px;
-    height: 132px; /* 배너의 높이 조정 */
+    height: 132px;
     margin-left: -144px;
     text-align: left;
     overflow: hidden;
     font-size: 12px;
     font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
     line-height: 1.5;
-    display: none; /* 기본적으로 숨기기 */
 }
 
 .wrap * {
