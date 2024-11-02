@@ -1,10 +1,8 @@
-/* 전체 제품 스타일 */
 .product {
     display: flex;
     padding: 10px;
 }
 
-/* 썸네일 이미지 스타일 */
 .thumbnail {
     max-width: 200px;
     width: 100%;
@@ -14,7 +12,6 @@
     display: none; /* 기본적으로 숨기기 */
 }
 
-/* 가격, 제목, 날짜 스타일 */
 .product .price {
     font-size: 16px;
     font-weight: 600;
@@ -45,34 +42,12 @@
     background: rgba(33, 122, 244, 0.1); /* 스크롤바 뒷 배경 색상 */
 }
 
-/* 버튼 스타일 */
 #btn {
     display: flex;
     padding: 10px;
     z-index: 2;
 }
 
-/* 지도와 관련된 컨테이너 스타일 */
-.map-container {
-    width: 100%; /* 부모 요소의 너비를 100%로 설정 */
-    height: calc(100vh - 100px); /* 전체 높이에서 적절한 값만큼 빼서 설정 */
-    position: relative; /* 자식 요소의 절대 위치를 위한 상대적 위치 설정 */
-}
-
-/* 맵 스타일 */
-#map {
-    width: 100%; /* 지도의 너비를 100%로 설정 */
-    height: 100%; /* 부모 요소에 맞춰 높이 자동 조정 */
-}
-
-/* 모바일에서의 지도 크기 조정 */
-@media (max-width: 768px) {
-    #map {
-        height: 300px; /* 모바일에서의 높이 설정 */
-    }
-}
-
-/* 정보 배너 스타일 */
 .wrap {
     position: absolute;
     left: 0;
@@ -177,4 +152,17 @@
 
 .info .link {
     color: #5085BB;
+}
+
+#map {
+    width: 100%; /* 지도의 너비를 100%로 설정 */
+    height: 500px; /* 지도의 높이를 설정 */
+    overflow: hidden; /* 자식 요소가 넘칠 경우 숨기기 */
+}
+
+/* 모바일에서의 지도 크기 조정 */
+@media (max-width: 768px) {
+    #map {
+        height: 300px; /* 모바일에서의 높이 설정 */
+    }
 }
