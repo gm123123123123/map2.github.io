@@ -2,13 +2,16 @@
     display: flex;
     padding: 10px;
   }
-  .thumbnail {
+.thumbnail {
     max-width: 200px;
     width: 100%;
+    height: 150px; /* 필요에 따라 높이 설정 */
     border-radius: 10px;
-    background-size: cover;
+    background-size: contain; /* 비율 유지 */
     background-position: center;
-  }
+    background-repeat: no-repeat;
+}
+
   .product .price {
     font-size: 16px;
     font-weight: 600;
