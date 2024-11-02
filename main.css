@@ -12,6 +12,14 @@
     background-repeat: no-repeat;
 }
 
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .thumbnail {
+        height: 120px; /* Adjust for mobile screen height */
+        background-size: contain; /* Prevents stretching on smaller screens */
+    }
+}
+
 
   .product .price {
     font-size: 16px;
