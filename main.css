@@ -2,9 +2,10 @@
     display: flex;
     padding: 10px;
   }
- .thumbnail {
+.thumbnail {
     max-width: 80px; /* 조정 가능한 최대 너비 */
-    height: 80px; /* 고정된 높이 */
+    height: auto; /* 높이를 자동으로 설정하여 비율 유지 */
+    max-height: 80px; /* 최대 높이를 설정 */
     border-radius: 8px;
     background-size: contain; /* 이미지 비율 유지 */
     background-position: center; /* 중앙 정렬 */
