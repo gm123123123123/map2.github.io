@@ -4,14 +4,14 @@
   }
   .thumbnail {
     max-width: 80px; /* 조정 가능한 최대 너비 */
-    height: auto; /* 높이를 자동으로 설정하여 비율 유지 */
-    max-height: 80px; /* 최대 높이를 설정 */
+    height: 80px; /* 고정된 높이 */
     border-radius: 8px;
     background-size: contain; /* 이미지 비율 유지 */
     background-position: center; /* 중앙 정렬 */
     background-repeat: no-repeat; /* 반복하지 않음 */
     overflow: hidden; /* 넘치는 부분 숨기기 */
 }
+
 
   .product .price {
     font-size: 16px;
