@@ -113,8 +113,10 @@
 .info .desc {
     position: relative;
     margin: 13px 0 0 90px;
-    height: 55px; /* 설명 박스 높이 조정 */
+    /* height: 75px; */ /* 이 줄을 제거하세요 */
+    height: auto; /* 높이를 자동으로 설정합니다. */
 }
+
 
 .desc .ellipsis {
     overflow: hidden;
