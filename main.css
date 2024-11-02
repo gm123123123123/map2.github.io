@@ -1,149 +1,59 @@
-/* 전체 제품 스타일 */
 .product {
     display: flex;
     padding: 10px;
-}
-
-.thumbnail {
+  }
+  .thumbnail {
     max-width: 200px;
     width: 100%;
     border-radius: 10px;
     background-size: cover;
     background-position: center;
-}
-
-.product .price {
+  }
+  .product .price {
     font-size: 16px;
     font-weight: 600;
-}
-
-.product .title {
+  }
+  .product .title {
     font-size: 17px;
     font-weight: 600;
-}
-
-.product .date {
+  }
+  .product .date {
     color: grey;
     font-size: 13px;
-}
-
-/* 아래의 모든 코드는 영역::코드로 사용 */
-
-#list::-webkit-scrollbar {
+  }
+  
+  /* 아래의 모든 코드는 영역::코드로 사용 */
+  
+  #list::-webkit-scrollbar {
     width: 10px; /* 스크롤바의 너비 */
-}
-
-#list::-webkit-scrollbar-thumb {
+  }
+  
+  #list::-webkit-scrollbar-thumb {
     height: 30%; /* 스크롤바의 길이 */
     background: #217af4; /* 스크롤바의 색상 */
+  
     border-radius: 10px;
-}
-
-#list::-webkit-scrollbar-track {
-    background: rgba(33, 122, 244, 0.1); /* 스크롤바 뒷 배경 색상 */
-}
-
-#btn {
+  }
+  
+  #list::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, 0.1); /*스크롤바 뒷 배경 색상*/
+  }
+  #btn {
     display: flex;
     padding: 10px;
     z-index: 2;
-}
-
-.wrap {
-    position: absolute;
-    left: 0;
-    bottom: 10px; /* 배너를 맵 위에 좀 더 아래로 배치 */
-    width: 90%; /* 배너 너비를 화면에 맞춰 조정 */
-    height: auto; /* 자동 높이 조정 */
-    max-height: 150px; /* 배너 최대 높이 */
-    text-align: left;
-    overflow: hidden;
-    font-size: 12px;
-    font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
-    line-height: 1.5;
-}
-
-.wrap * {
-    padding: 0;
-    margin: 0;
-}
-
-.wrap .info {
-    width: 100%; /* 배너 정보의 너비를 100%로 설정 */
-    height: auto; /* 내용에 맞춰 높이 자동 조정 */
-    border-radius: 5px;
-    border-bottom: 2px solid #ccc;
-    border-right: 1px solid #ccc;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.9); /* 배너 배경을 반투명으로 설정 */
-}
-
-.wrap .info:nth-child(1) {
-    border: 0;
-    box-shadow: 0px 1px 2px #888;
-}
-
-.info .title {
-    padding: 5px 0 0 10px;
-    height: 30px;
-    background: #eee;
-    border-bottom: 1px solid #ddd;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.info .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #888;
-    width: 17px;
-    height: 17px;
-    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
-}
-
-.info .close:hover {
-    cursor: pointer;
-}
-
-.info .body {
-    position: relative;
-    overflow: hidden;
-}
-
-.info .desc {
-    position: relative;
-    margin: 13px 0 0 10px; /* 여백 조정 */
-    height: auto; /* 설명의 높이를 자동으로 조정 */
-}
-
-.desc .ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.desc .jibun {
-    font-size: 11px;
-    color: #888;
-    margin-top: -2px;
-}
-
-.info .img {
-    display: none; /* 이미지를 숨김 */
-}
-
-.info:after {
-    content: '';
-    position: absolute;
-    margin-left: -12px;
-    left: 50%;
-    bottom: 0;
-    width: 22px;
-    height: 12px;
-    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
-}
-
-.info .link {
-    color: #5085BB;
-}
+  }
+  .wrap {position: absolute;left: 0;bottom: 40px;width: 500px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info {width: 500px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .close:hover {cursor: pointer;}
+    .info .body {position: relative;overflow: hidden;}
+    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .info .link {color: #5085BB;}
