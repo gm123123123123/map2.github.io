@@ -1,46 +1,30 @@
 .product {
     display: flex;
-    align-items: center; /* 이미지와 텍스트를 수직으로 가운데 정렬 */
     padding: 10px;
-}
-
+  }
 .thumbnail {
-    max-width: 80px; /* 최대 너비 */
-    height: 80px; /* 고정된 높이 */
-    border-radius: 10px;
-    background-size: cover; /* 이미지 비율 유지 */
+    max-width: 80px; /* 조정 가능한 최대 너비 */
+    height: auto; /* 높이를 자동으로 설정하여 비율 유지 */
+    max-height: 80px; /* 최대 높이를 설정 */
+    border-radius: 8px;
+    background-size: contain; /* 이미지 비율 유지 */
     background-position: center; /* 중앙 정렬 */
     background-repeat: no-repeat; /* 반복하지 않음 */
     overflow: hidden; /* 넘치는 부분 숨기기 */
-    margin-right: 10px; /* 텍스트와의 간격을 위한 마진 */
 }
 
-.product .content {
-    flex: 1; /* 남은 공간을 차지하도록 설정 */
-}
-
-.product .price,
-.product .title,
-.product .date {
-    margin: 0; /* 기본 마진 제거 */
-}
-
-.product .title {
-    font-size: 17px;
-    font-weight: 600;
-    line-height: 1.2; /* 줄 높이 조정 */
-}
-
-.product .price {
+  .product .price {
     font-size: 16px;
     font-weight: 600;
-}
-
-.product .date {
+  }
+  .product .title {
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .product .date {
     color: grey;
     font-size: 13px;
-}
-
+  }
   
   /* 아래의 모든 코드는 영역::코드로 사용 */
   
